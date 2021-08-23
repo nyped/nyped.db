@@ -15,7 +15,7 @@ jobs:
         for p in "${!l[@]}"; do
         v="${l[$p]}"
         curl -sL -O \
-        "https://github./com/lennypeers/$p/releases/tag/$v/$p-$v-x86_64.pkg.tar.zst"
+        "https://github.com/lennypeers/$p/releases/tag/$v/$p-$v-x86_64.pkg.tar.zst"
         done
 
     - name: update
