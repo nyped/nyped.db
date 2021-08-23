@@ -26,7 +26,7 @@ jobs:
         passwd -d builduser
         chown -R builduser:builduser ./
         pacman -Syu --noconfirm --needed sudo base-devel
-        sudo -u builduser bash -c 'repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst'
+        sudo -u builduser bash -c 'mkdir repo && repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst'
         mv *.pkg.tar.zst repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
