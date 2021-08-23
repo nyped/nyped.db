@@ -15,7 +15,7 @@ jobs:
         for p in "${!l[@]}"; do
         v="${l[$p]}"
         curl -sL -O \
-        "https://github.com/lennypeers/$p/releases/tag/$v/$p-$v-x86_64.pkg.tar.zst"
+        "https://github.com/lennypeers/$p/releases/download/$v/$p-$v-x86_64.pkg.tar.zst"
         done
 
     - name: update
@@ -25,7 +25,6 @@ jobs:
         useradd builduser -m
         passwd -d builduser
         chown -R builduser:builduser ./
-        pacman -Syu --noconfirm --needed sudo base-devel
         sudo -u builduser bash -c 'mkdir repo && repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst'
         mv *.pkg.tar.zst repo
         EOF
