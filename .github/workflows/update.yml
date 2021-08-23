@@ -1,0 +1,50 @@
+name: update repo
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: fetch packages
+      run: |
+        declare -A l
+        source packages
+        for p in "${!l[@]}"; do
+        v="${l[$p]}"
+        curl -sL -O \
+        "https://github./com/lennypeers/$p/releases/tag/$v/$p-$v-x86_64.pkg.tar.zst"
+        done
+
+    - name: update
+      run: |
+        cat << EOF > entrypoint.sh
+        cd /build
+        useradd builduser -m
+        passwd -d builduser
+        chown -R builduser:builduser ./
+        pacman -Syu --noconfirm --needed sudo base-devel
+        sudo -u builduser bash -c 'repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst'
+        mv *.pkg.tar.zst repo
+        EOF
+        docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
+
+    - name: create tag
+      id: create_tag
+      run: |
+        tag_name="$(date '+%s')"
+        echo "::set-output name=tag::$tag_name"
+        echo $tag_name
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ github.workspace }}/repo/*
+        tag_name: ${{ steps.create_tag.outputs.tag }}
+        draft: false
+        body: lennypeers's packages
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
