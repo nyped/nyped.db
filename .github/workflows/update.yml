@@ -23,7 +23,7 @@ jobs:
         cat << EOF > entrypoint.sh
         cd /build
         mkdir repo
-        repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst'
+        repo-add repo/lennypeers.db.tar.xz *.pkg.tar.zst
         mv *.pkg.tar.zst repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
