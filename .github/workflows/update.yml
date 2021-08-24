@@ -24,6 +24,8 @@ jobs:
         cd /build
         mkdir repo
         repo-add repo/lennypeers.db.tar.gz *.pkg.tar.zst
+        cp repo/lennypeers.db.tar.gz repo/lennypeers.db
+        cp repo/lennypeers.files.tar.gz repo/lennypeers.files
         mv *.pkg.tar.zst repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
