@@ -32,6 +32,15 @@ jobs:
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
 
+    - name: delete previous release
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const { owner, repo } = context.repo
+          const { data: { id } } = await github.repos.getLatestRelease({ owner, repo })
+          await github.repos.deleteRelease({ owner, repo, release_id: id })
+
     - name: create tag
       id: create_tag
       run: |
