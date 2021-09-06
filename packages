@@ -1,16 +1,9 @@
-# $1: repo name
-# $2: version
-git_link() {
-  echo "https://github.com/lennypeers/$1/releases/download/$2/$1-$2-x86_64.pkg.tar.zst"
-}
-
 # Add your packages here
+
 l=(
-  "$(git_link mff 0.2.2-1)"
-  "$(git_link tpl 0.3-1)"
-  "$(git_link ndvd 0.1-4)"
-  "file://$PWD/pkgbuilds/spyder/PKGBUILD"
-  "file://$PWD/pkgbuilds/bastet/PKGBUILD"
+  [mmf]=0.2.2-1
+  [tpl]=0.3-1
+  [ndvd]=0.1-4
 )
 
-# vim: set ts=2 sts=2 sw=2 et syn=sh:
+# vim: set ts=2 sts=2 sw=2 et :
