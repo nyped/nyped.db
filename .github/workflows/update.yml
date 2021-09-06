@@ -8,8 +8,11 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: fetch packages
+    - name: fetch packages and create repo
       run: |
+        cat << EOF > entrypoint.sh
+        cd /build
+        # download packages and build if needed
         declare -A l
         source packages
         for p in "${!l[@]}"; do
@@ -19,11 +22,6 @@ jobs:
             rm PKGBUILD
           fi
         done
-
-    - name: update
-      run: |
-        cat << EOF > entrypoint.sh
-        cd /build
         mkdir repo
         repo-add repo/lennypeers.db.tar.gz *.pkg.tar.zst
         # well, got issues uploading symlinks...
