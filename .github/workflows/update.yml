@@ -21,13 +21,12 @@ jobs:
         EOF
 
         # download packages and build if needed
-        declare -A l
+        declare -a l
         source packages
-        for p in "${!l[@]}"; do
-          curl -sLO "${l[$p]}"
-          if [[ -f PKGBUILD ]]; then
+        for p in "${l[@]}"; do
+          curl -sLO "$p"
+          if [[ $p == file://* ]]; then
             docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
-            sudo rm -f PKGBUILD
           fi
         done
 
