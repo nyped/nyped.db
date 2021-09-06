@@ -27,7 +27,7 @@ jobs:
           curl -sLO "${l[$p]}"
           if [[ -f PKGBUILD ]]; then
             docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
-            rm PKGBUILD
+            rm -f PKGBUILD
           fi
         done
 
@@ -58,7 +58,7 @@ jobs:
       id: create_tag
       run: |
         # same tag because we need a static server name
-        # either way pacman won't be abble to find the server
+        # either way pacman won't be able to find the server
         tag_name=repo
         echo "::set-output name=tag::$tag_name"
         echo $tag_name
