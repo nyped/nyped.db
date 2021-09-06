@@ -8,27 +8,40 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: fetch packages and create repo
+    - name: fetch/build packages
       run: |
         cat << EOF > entrypoint.sh
         cd /build
+        useradd builduser -m
+        passwd -d builduser
+        pacman -Syu --noconfirm --needed sudo base-devel
+        echo -e 'builduser ALL=(ALL) ALL\n' >> /etc/sudoers
+        chown -R builduser:builduser ./
+        sudo -u builduser bash -c 'makepkg -si --noconfirm'
+        EOF
+
         # download packages and build if needed
         declare -A l
         source packages
         for p in "${!l[@]}"; do
           curl -sLO "${l[$p]}"
           if [[ -f PKGBUILD ]]; then
-            makepkg -sf
+            docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
             rm PKGBUILD
           fi
         done
+
+    - name: create repo
+      run: |
+        cat << EOF > entrypoint.sh
+        cd /build
         mkdir repo
-        repo-add repo/lennypeers.db.tar.gz *.pkg.tar.zst
+        repo-add repo/lennypeers.db.tar.gz *.pkg.tar.*
         # well, got issues uploading symlinks...
         rm repo/lennypeers.{db,files}
         mv repo/lennypeers.db{.tar.gz,}
         mv repo/lennypeers.files{.tar.gz,}
-        mv *.pkg.tar.zst repo
+        mv *.pkg.tar.* repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
 
