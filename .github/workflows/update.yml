@@ -27,7 +27,7 @@ jobs:
           curl -sLO "${l[$p]}"
           if [[ -f PKGBUILD ]]; then
             docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
-            rm -f PKGBUILD
+            sudo rm -f PKGBUILD
           fi
         done
 
