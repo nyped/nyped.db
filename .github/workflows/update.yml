@@ -13,9 +13,11 @@ jobs:
         declare -A l
         source packages
         for p in "${!l[@]}"; do
-        v="${l[$p]}"
-        curl -sL -O \
-        "https://github.com/lennypeers/$p/releases/download/$v/$p-$v-x86_64.pkg.tar.zst"
+          curl -sLO "${l[$p]}"
+          if [[ -f PKGBUILD ]]; then
+            makepkg -sf
+            rm PKGBUILD
+          fi
         done
 
     - name: update
