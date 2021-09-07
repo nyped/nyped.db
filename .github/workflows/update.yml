@@ -11,23 +11,30 @@ jobs:
     - name: fetch/build packages
       run: |
         cat << EOF > entrypoint.sh
-        cd /build
-        useradd builduser -m
-        passwd -d builduser
-        pacman -Syu --noconfirm --needed sudo base-devel
-        echo -e 'builduser ALL=(ALL) ALL\n' >> /etc/sudoers
-        chown -R builduser:builduser ./
-        sudo -u builduser bash -c 'makepkg -si --noconfirm'
+          cd /build
+          useradd builduser -m
+          passwd -d builduser
+          pacman -Syu --noconfirm --needed sudo base-devel
+          echo -e 'builduser ALL=(ALL) ALL\n' >> /etc/sudoers
+          chown -R builduser:builduser ./
+          sudo -u builduser bash -c 'makepkg -si --noconfirm'
         EOF
 
         # download packages and build if needed
         declare -a l
         source packages
         for p in "${l[@]}"; do
-          curl -sLO "$p"
-          if [[ $p == file://* ]]; then
-            docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
-          fi
+          case $p in
+            http://*) # external package already build
+              curl -sLO $p
+            ;;
+
+            *) # repo
+              cp entrypoint.sh $p
+              docker run -t -v "$PWD/$p":/build archlinux /bin/bash /build/entrypoint.sh
+              mv $p/*.pkg.tar.* .
+            ;;
+          esac
         done
 
     - name: create repo
