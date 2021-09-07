@@ -42,12 +42,12 @@ jobs:
         cat << EOF > entrypoint.sh
         cd /build
         mkdir repo
-        repo-add repo/lennypeers.db.tar.gz *.pkg.tar.*
+        repo-add repo/lennypeers.db.tar.gz *.pkg.tar.zst
         # well, got issues uploading symlinks...
         rm repo/lennypeers.{db,files}
         mv repo/lennypeers.db{.tar.gz,}
         mv repo/lennypeers.files{.tar.gz,}
-        mv *.pkg.tar.* repo
+        mv *.pkg.tar.zst repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
 
@@ -64,7 +64,7 @@ jobs:
       id: create_tag
       run: |
         # same tag because we need a static server name
-        # either way pacman won't be able to find the server
+        # either way pacman won't be abble to find the server
         tag_name=repo
         echo "::set-output name=tag::$tag_name"
         echo $tag_name
