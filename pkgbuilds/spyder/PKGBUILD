@@ -5,7 +5,7 @@
 
 pkgname=spyder
 pkgver=5.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
@@ -102,7 +102,7 @@ prepare() {
   # https://github.com/spyder-ide/spyder/pull/15100
   sed "s|SPYDER_KERNELS_REQVER = '>=2.0.1,<2.1.0'|SPYDER_KERNELS_REQVER = '>=2.0.1;<2.1.0'|" -i spyder/dependencies.py
   # https://bugs.archlinux.org/task/70689
-  sed "s|decorator<5|decorator|" -i setup.py
+  sed "s|decorator<5|decorator|" -i external-deps/spyder-kernels/setup.py
 }
 
 build() {
