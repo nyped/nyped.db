@@ -10,6 +10,7 @@ l=(
   "$(git_link tpl 0.3-1)"
   "$(git_link ndvd 0.1-4)"
   spyder
+  spyder-kernels
 )
 
 # vim: set ts=2 sts=2 sw=2 et syn=sh:

@@ -1,0 +1,53 @@
+# Maintainer: Muflone http://www.muflone.com/contacts/english/
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Fork: lennypeers <lennypeers+pkg at gmail>
+
+_pkg=spyder-kernels
+pkgname=python-${_pkg}
+pkgver=2.1.1
+pkgrel=1
+pkgdesc="Jupyter Kernels for the Spyder console"
+arch=(any)
+url="https://github.com/spyder-ide/spyder-kernels/"
+license=(MIT)
+makedepends=(python python-setuptools)
+depends=(
+    python-cloudpickle
+    python-ipykernel
+    python-jupyter_client
+    python-pyzmq
+    python-wurlitzer
+)
+checkdepends=(
+    cython
+    python-dask
+    python-distributed
+    python-flaky
+    python-matplotlib
+    python-mock
+    python-numpy
+    python-pandas
+    python-pillow
+    python-pytest
+    python-scipy
+    python-xarray
+)
+# No tests in pypi tarballs
+source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('baa04c2e9f1263d0f6637b71498608b7f34d7361f71cc9c2004cc17b21b20a64')
+
+build() {
+  cd ${_pkg}-${pkgver}
+  python setup.py build
+}
+
+check() {
+  cd ${_pkg}-${pkgver}
+  pytest spyder_kernels
+}
+
+package() {
+  cd ${_pkg}-${pkgver}
+  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
+  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}

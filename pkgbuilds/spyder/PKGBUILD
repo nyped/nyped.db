@@ -100,8 +100,6 @@ prepare() {
   # Allow our Qt version
   sed "s|'pyqt5<5.13'|'pyqt5'|" -i setup.py
   sed "s|'pyqtwebengine<5.13'|'pyqtwebengine'|" -i setup.py
-  # https://github.com/spyder-ide/spyder/pull/15100
-  sed "s|SPYDER_KERNELS_REQVER = '>=2.0.1,<2.1.0'|SPYDER_KERNELS_REQVER = '>=2.0.1;<2.1.0'|" -i spyder/dependencies.py
   # https://bugs.archlinux.org/task/70689
   sed "s/decorator<5/decorator/" -i setup.py
 }
