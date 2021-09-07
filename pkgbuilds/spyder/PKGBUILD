@@ -2,10 +2,9 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 # Contributor: Francois Boulogne <fboulogne@april.org>
 # Contributor: TDY <tdy@gmx.com>
-# Fork: lennypeers <lennypeers+pkg at gmail>
 
 pkgname=spyder
-pkgver=5.1.3
+pkgver=5.0.1
 pkgrel=2
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
@@ -16,7 +15,7 @@ depends=(
     python-atomicwrites
     python-chardet
     python-cloudpickle
-    python-cookiecutter
+   	python-cookiecutter
     python-diff-match-patch
     python-intervaltree
     ipython
@@ -44,7 +43,6 @@ depends=(
     python-qtawesome
     python-qtconsole
     python-qtpy
-    python-rtree
     python-setuptools
     python-sphinx
     python-spyder-kernels
@@ -87,7 +85,7 @@ checkdepends=(
     tk
 )
 source=(https://github.com/spyder-ide/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('885dee1b9cfbe64b821309bf2311a572af576c1a7adbd60ba6811bb8716ae87ed837cefb149d17f9676a0d175437960e833000c0e54a43eb7c65041b80ec4bf3')
+sha512sums=('af0c622ef295d91af079daec70bd8299afe248f43d602b2bb6bf345dac09284a6a74092b40fcca3905f3373e2dae9f43b0ed3f0ef1f9ad99bd78989e7bed579e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -101,8 +99,10 @@ prepare() {
   # Allow our Qt version
   sed "s|'pyqt5<5.13'|'pyqt5'|" -i setup.py
   sed "s|'pyqtwebengine<5.13'|'pyqtwebengine'|" -i setup.py
+  # https://github.com/spyder-ide/spyder/pull/15100
+  sed "s|SPYDER_KERNELS_REQVER = '>=2.0.1,<2.1.0'|SPYDER_KERNELS_REQVER = '>=2.0.1;<2.1.0'|" -i spyder/dependencies.py
   # https://bugs.archlinux.org/task/70689
-  sed "s/decorator<5/decorator/" -i setup.py
+  sed "s|decorator<5|decorator|" -i setup.py
 }
 
 build() {
@@ -127,7 +127,6 @@ check() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  export PYTHONHASHSEED=0
   python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
   # Install license file
   install -Dm644 LICENSE.txt -t ${pkgdir}/usr/share/licenses/${pkgname}/
