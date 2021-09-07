@@ -44,6 +44,7 @@ depends=(
     python-qtawesome
     python-qtconsole
     python-qtpy
+	python-rtree
     python-setuptools
     python-sphinx
     python-spyder-kernels
@@ -133,5 +134,6 @@ package() {
   # Install icon file
   install -Dm644 spyder/images/spyder.svg -t "${pkgdir}"/usr/share/icons/hicolor/scalable/apps/
   # Remove useless spyder_win_post_install script
+  python-rtree
   rm -f "${pkgdir}"/usr/bin/spyder_win_post_install.py
 }
