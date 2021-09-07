@@ -30,9 +30,9 @@ jobs:
             ;;
 
             *) # repo
-              cp entrypoint.sh $p
-              docker run -t -v "$PWD/$p":/build archlinux /bin/bash /build/entrypoint.sh
-              mv $p/*.pkg.tar.* .
+              cp entrypoint.sh pkgbuilds/$p
+              docker run -t -v "$PWD/pkgbuilds/$p":/build archlinux /bin/bash /build/entrypoint.sh
+              mv pkgbuilds/$p/*.pkg.tar.* .
             ;;
           esac
         done
