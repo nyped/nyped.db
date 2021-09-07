@@ -25,7 +25,7 @@ jobs:
         source packages
         for p in "${l[@]}"; do
           case $p in
-            http://*) # external package already build
+            https://* | http://*) # external package already build
               curl -sLO $p
             ;;
 
