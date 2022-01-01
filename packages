@@ -9,6 +9,7 @@ l=(
   "$(git_link mmf 0.2.3-1)"
   "$(git_link tpl 0.4-1)"
   "$(git_link ndvd 0.2.1-1)"
+  xf86-input-libinput-fds
 )
 
 # vim: set ts=2 sts=2 sw=2 et syn=sh:
