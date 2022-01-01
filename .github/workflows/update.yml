@@ -17,8 +17,10 @@ jobs:
           pacman -Syu --noconfirm --needed sudo base-devel
           echo -e 'builduser ALL=(ALL) ALL\n' >> /etc/sudoers
           chown -R builduser:builduser ./
-          sudo -u builduser bash -c 'makepkg -si --noconfirm'
+          sudo -u builduser bash -c 'makepkg -si --skippgpcheck --noconfirm'
         EOF
+
+        # TODO: pgp check
 
         # download packages and build if needed
         declare -a l
