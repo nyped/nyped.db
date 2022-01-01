@@ -17,10 +17,11 @@ jobs:
           pacman -Syu --noconfirm --needed sudo base-devel
           echo -e 'builduser ALL=(ALL) ALL\n' >> /etc/sudoers
           chown -R builduser:builduser ./
-          sudo -u builduser bash -c 'makepkg -si --skippgpcheck --noconfirm'
+          sudo -u builduser bash -c 'makepkg --syncdeps --skippgpcheck --noconfirm'
         EOF
 
-        # TODO: pgp check
+        # TODO: - pgp check
+        #       - Install test bug ref: https://bbs.archlinux.org/viewtopic.php?id=256344
 
         # download packages and build if needed
         declare -a l
