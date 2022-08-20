@@ -1,0 +1,9 @@
+[Unit]
+Description=Simple Dell Fan
+
+[Service]
+ExecStart=/usr/bin/sdf
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

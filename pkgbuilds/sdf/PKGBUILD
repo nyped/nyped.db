@@ -5,12 +5,12 @@ pkgver=0.2
 pkgrel=1
 pkgdesc="simple dell fan"
 arch=(x86_64)
-url="https://github.com/lennypeers"
+url=https://github.com/lennypeers/lennypeers.db
 license=(MIT)
 depends=(bash)
 source=(
-  "http://0x0.st/o9sI.sh"
-  "http://0x0.st/o1xD.service"
+  sdf.sh
+  sdf.service
 )
 sha512sums=(
   '034c4eea03cb263da0d8b017b3638de2f3b6fdf04f4ee1b67c0a10991dfe0f1adc5236eaece0f63f18e5446bda1557798c9482a2489377464001b241c67b4d8e'
