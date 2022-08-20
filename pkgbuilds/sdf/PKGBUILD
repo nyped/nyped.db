@@ -1,0 +1,26 @@
+# Maintainer: lennypeers <lennypeers+git gmail>
+
+pkgname=sdf
+pkgver=0.2
+pkgrel=1
+pkgdesc="simple dell fan"
+arch=(x86_64)
+url="https://github.com/lennypeers"
+license=(MIT)
+depends=(bash)
+source=(
+  "http://0x0.st/o9sI.sh"
+  "http://0x0.st/o1xD.service"
+)
+sha512sums=(
+  '034c4eea03cb263da0d8b017b3638de2f3b6fdf04f4ee1b67c0a10991dfe0f1adc5236eaece0f63f18e5446bda1557798c9482a2489377464001b241c67b4d8e'
+  'ad90898ff8e7bab201f387e6a3a0c0804f3ced64a619f2d02229f0a07235038318c024cedd71a2b8945f90d081d9c74ae4da44c7abe84fd5c4a019c5d019caf4'
+)
+
+package() {
+  cd "$srcdir"
+  install -vDm0755 "${source[0]##*/}" "$pkgdir"/usr/bin/sdf
+  install -vDm0644 "${source[1]##*/}" "$pkgdir"/etc/systemd/system/sdf.service
+}
+
+# vim: set ft=sh ts=8 sts=8 sw=2 et:
