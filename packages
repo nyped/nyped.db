@@ -1,12 +1,13 @@
 # $1: repo name
 # $2: version
+# $3: arch
 git_link() {
-  echo "https://github.com/lennypeers/$1/releases/download/$2/$1-$2-x86_64.pkg.tar.zst"
+  echo "https://github.com/lennypeers/$1/releases/download/$2/$1-$2-$3.pkg.tar.zst"
 }
 
 # Add your packages here
 l=(
-  "$(git_link tpl 0.5.0-1)"
+  "$(git_link tpl 0.5.0-1 any)"
   sdf
 )
 
