@@ -1,11 +1,11 @@
-# Maintainer: lennypeers <lennypeers+git gmail>
+# Maintainer: nyped <lennypeers+git gmail>
 
 pkgname=sdf
 pkgver=0.2
 pkgrel=1
 pkgdesc="simple dell fan"
 arch=(x86_64)
-url=https://github.com/lennypeers/lennypeers.db
+url=https://github.com/nyped/nyped.db
 license=(MIT)
 depends=(bash)
 source=(

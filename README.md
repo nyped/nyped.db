@@ -1,4 +1,4 @@
-# lenny's custom repo
+# nyped's custom repo
 
 Custom Arch Linux repository with auto-build using GitHub Actions.
 
@@ -10,8 +10,10 @@ Custom Arch Linux repository with auto-build using GitHub Actions.
 
 ## wanna try?
 
+Add this entry to `/etc/pacman.conf`:
+
 ```
-[lennypeers]
+[nyped]
 SigLevel = Never
-Server = https://github.com/lennypeers/lennypeers.db/releases/download/repo
+Server = https://github.com/nyped/nyped.db/releases/download/repo
 ```

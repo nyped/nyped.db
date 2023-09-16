@@ -1,5 +1,5 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
-# Maintainer: lennypeers <lennypeers+git@gmail.com>
+# Maintainer: nyped <lennypeers+git@gmail.com>
 
 pkgname=xf86-input-libinput-fds
 pkgver=1.2.1
