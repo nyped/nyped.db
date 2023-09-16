@@ -45,11 +45,11 @@ jobs:
         cat << EOF > entrypoint.sh
         cd /build
         mkdir repo
-        repo-add repo/lennypeers.db.tar.gz *.pkg.tar.zst
+        repo-add repo/nyped.db.tar.gz *.pkg.tar.zst
         # well, got issues uploading symlinks...
-        rm repo/lennypeers.{db,files}
-        mv repo/lennypeers.db{.tar.gz,}
-        mv repo/lennypeers.files{.tar.gz,}
+        rm repo/nyped.{db,files}
+        mv repo/nyped.db{.tar.gz,}
+        mv repo/nyped.files{.tar.gz,}
         mv *.pkg.tar.zst repo
         EOF
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
