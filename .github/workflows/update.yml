@@ -55,7 +55,7 @@ jobs:
         docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
 
     - name: delete previous release
-      uses: dev-drprasad/delete-older-releases@v0.2
+      uses: dev-drprasad/delete-older-releases@v0.2.1
       with:
         keep_latest: 0
       env:
